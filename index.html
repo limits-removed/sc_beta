@@ -48,24 +48,42 @@
             margin-left: 50px;
             height: 50px;
         }
+
+        .section {
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            z-index: -1;
+
+        }
     </style>
 </head>
 
 <body>
-    <div class="nav">
-        <img src="./logo.svg" alt="" class="logo">
-        <ul>
-            <a href="#">
-                <li><span>Home</span></li>
-            </a>
-            <a href="#">
-                <li><span>Services</span></li>
-            </a>
-            <a href="#">
-                <li><span>Contact</span></li>
-            </a>
-        </ul>
+    <div class="container">
+        <div class="section" id="1">
+            <div class="nav">
+                <img src="./logo.svg" alt="" class="logo">
+                <ul>
+                    <a href="#">
+                        <li><span>Home</span></li>
+                    </a>
+                    <a href="#">
+                        <li><span>Services</span></li>
+                    </a>
+                    <a href="#">
+                        <li><span>Contact</span></li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <div class="section" style="background-color: aliceblue;" id="3">POGAPOGA</div>
+        <div class="section" style="background-color: antiquewhite;" id="2">
+            WOW
+        </div>
+
     </div>
+
     <script>
         document.querySelectorAll(".nav ul a").forEach(elem => {
             elem.addEventListener("mouseenter", function () {
@@ -73,6 +91,20 @@
             });
             elem.addEventListener("mouseleave", function () {
                 this.children[0].children[0].style.backgroundSize = "0% 2px";
+            });
+        });
+
+        document.querySelectorAll(".container > .section").forEach(child => {
+            let childerns = Array.from(document.querySelector(".container").children);
+            child.addEventListener("wheel", function (event) {
+                if (event.deltaY < 0) {
+                    document.getElementById(`${this.id}`).style.zIndex = -1;
+                    document.getElementById(`${this.id - 1}`).style.zIndex = 5;
+                }
+                else if (event.deltaY > 0) {
+                    document.getElementById(`${this.id}`).style.zIndex = -1;
+                    document.getElementById(`${this.id + 1}`).style.zIndex = 5;
+                }
             });
         });
     </script>
