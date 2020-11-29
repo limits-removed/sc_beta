@@ -4,108 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shortcut - Consider it done!</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/nav.css">
     <style>
         body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: rgb(129, 129, 129);
-        }
-
-        .nav ul {
-            position: absolute;
-            margin: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-top: 30px;
-            padding: 0;
-            list-style: none;
-        }
-
-        .nav ul li {
-            display: inline-block;
-            font-size: 24px;
-            padding: 3px 15px;
-        }
-
-        .nav ul li span {
-            background-image: linear-gradient(currentColor, currentColor);
-            background-position: 0% 100%;
-            background-repeat: no-repeat;
-            background-size: 0% 2px;
-            transition: background-size .3s;
-        }
-
-        .nav ul a {
-            color: black;
-            text-decoration: none;
-
-        }
-
-        .logo {
-            position: absolute;
-            margin-top: 20px;
-            margin-left: 50px;
-            height: 50px;
+            background-color: antiquewhite;
+            overflow: hidden;
         }
 
         .section {
-            height: 100vh;
             width: 100vw;
-            position: absolute;
-            z-index: -1;
+            height: 100vh;
+            position: relative;
+        }
 
+        .fixNav * {
+            /* position: relative; */
+            z-index: 100;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="section" id="1">
-            <div class="nav">
-                <img src="./logo.svg" alt="" class="logo">
-                <ul>
-                    <a href="#">
-                        <li><span>Home</span></li>
-                    </a>
-                    <a href="#">
-                        <li><span>Services</span></li>
-                    </a>
-                    <a href="#">
-                        <li><span>Contact</span></li>
-                    </a>
-                </ul>
+    <div class="fixNav">
+        <div class="b-nav">
+            <li><a class="b-link" href="#home">Home</a></li>
+            <li><a class="b-link" href="#services">Services</a></li>
+            <li><a class="b-link" href="#contact">Contact</a></li>
+        </div>
+
+        <!-- Burger-Icon -->
+        <div class="b-container">
+            <div class="b-menu">
+                <div class="b-bun b-bun--top"></div>
+                <div class="b-bun b-bun--mid"></div>
+                <div class="b-bun b-bun--bottom"></div>
             </div>
-        </div>
-        <div class="section" style="background-color: aliceblue;" id="3">POGAPOGA</div>
-        <div class="section" style="background-color: antiquewhite;" id="2">
-            WOW
-        </div>
 
+            <!-- Burger-Brand -->
+            <a href="#" class="b-brand" onclick="event.preventDefault()" style="cursor: default;">Shortcut</a>
+        </div>
     </div>
-
+    <div class="section" id="home">Home</div>
+    <div class="section" id="services">Serv</div>
+    <div class="section" id="contact">cont</div>
     <script>
-        document.querySelectorAll(".nav ul a").forEach(elem => {
-            elem.addEventListener("mouseenter", function () {
-                this.children[0].children[0].style.backgroundSize = "100% 2px";
+        var body = document.body;
+        var burgerMenu = document.getElementsByClassName('b-menu')[0];
+        var burgerContain = document.getElementsByClassName('b-container')[0];
+        var burgerNav = document.getElementsByClassName('b-nav')[0];
+        var burgerBrand = document.getElementsByClassName('b-brand')[0];
+        burgerMenu.addEventListener('click', function toggleClasses() {
+            [body, burgerContain, burgerNav].forEach(function (el) {
+                el.classList.toggle('open');
             });
-            elem.addEventListener("mouseleave", function () {
-                this.children[0].children[0].style.backgroundSize = "0% 2px";
-            });
-        });
-
-        document.querySelectorAll(".container > .section").forEach(child => {
-            let childerns = Array.from(document.querySelector(".container").children);
-            child.addEventListener("wheel", function (event) {
-                if (event.deltaY < 0) {
-                    document.getElementById(`${this.id}`).style.zIndex = -1;
-                    document.getElementById(`${this.id - 1}`).style.zIndex = 5;
-                }
-                else if (event.deltaY > 0) {
-                    document.getElementById(`${this.id}`).style.zIndex = -1;
-                    document.getElementById(`${this.id + 1}`).style.zIndex = 5;
-                }
-            });
+        }, false);
+        Array.from(burgerNav.children).forEach(child => {
+            child.addEventListener("click", function () {
+                burgerBrand.innerHTML = this.children[0].innerText;
+            })
         });
     </script>
 </body>
